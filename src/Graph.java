@@ -50,7 +50,7 @@ class Graph {
      * @param a        - исследуемая операция ребра;
      * @return boolean - true: такое ребро существует, false: такого ребра не существует.
      */
-    boolean isRibExists (RibElement x,RibElement y,String a) {
+    boolean doesRibExist(RibElement x, RibElement y, String a) {
 
         for (Rib r : ribList) {
             if (r.getA().equals(a) && r.getX().equals(x) && r.getY().equals(y))
@@ -67,7 +67,7 @@ class Graph {
      * @param y        - y-элемент ребра;
      * @return boolean - true: такое ребро существует, false: такого ребра не существует.
      */
-    boolean isVirtualRibExists(RibElement x, RibElement y) {
+    boolean doVirtualRibExists(RibElement x, RibElement y) {
         for (Rib r : ribList) {
             if (r.getA().equals("w") && r.getX().equals(x) && r.getY().equals(y) && r.getType() == 0)
                 return true;

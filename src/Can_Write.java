@@ -13,15 +13,15 @@ class Can_Write {
 
     // проверяем, условие (1) : между x и y уже есть мнимое ребро с операцией {w}.
     private static boolean rule_1(RibElement x,RibElement y) {
-       return (currentGraph.doVirtualRibExists(x,y));
+       return (currentGraph.isVirtualRibExists(x,y));
     }
 
     private static void printElements () {
-        System.out.print("текущие вершины: ");
+        System.out.print("текущие вершиниы: ");
         for (RibElement element : currentElements)
             System.out.print(element + ", ");
 
-        System.out.print("\nотработанные вершины: ");
+        System.out.print("\nотработанные вершиниы: ");
         for (RibElement el : notNeededRibs)
             System.out.print(el + ", ");
     }
@@ -70,7 +70,7 @@ class Can_Write {
         //проверяем условие (2.1) : o_1 это субъект и:
         if (isSubject(o1)) {
             //проверяем условие (2.1.2) : между элементом o_1 и элементом o_2 ребро с операцией {w}
-            if (currentGraph.doesRibExist(o1,o2, "w")) {
+            if (currentGraph.isRibExists(o1,o2, "w")) {
                 System.out.println("rule_212 for: " + o1 + " and " + o2);
                 currentElements.add(o2);
                 return true;
@@ -79,7 +79,7 @@ class Can_Write {
         //проверяем условие (2.2) : o_2 это субъект и:
         if (isSubject(o2)) {
             //проверяем условие (2.2.2) : между элементом o_2 и элементом o_1 ребро с операцией {r}
-            if (currentGraph.doesRibExist(o2,o1, "r")) {
+            if (currentGraph.isRibExists(o2,o1, "r")) {
                 System.out.println("rule_222 for: " + o1 + " and " + o2);
                 currentElements.add(o2);
                 return true;
@@ -88,33 +88,33 @@ class Can_Write {
         // проверяем условие (2.3) : o1 и o2 это субъекты и:
         if (isSubject(o1) && isSubject(o2)) {
             // проверяем условие (2.3.1) : между o_1 и o_2 есть ребро с опреацией "a = {t,g}"
-            if (currentGraph.doesRibExist(o1,o2,"t") ||
-                    currentGraph.doesRibExist(o1,o2,"g")) {
+            if (currentGraph.isRibExists(o1,o2,"t") ||
+                    currentGraph.isRibExists(o1,o2,"g")) {
                 System.out.println("rule_231 for: " + o1 + " and " + o2);
                 currentElements.add(o2);
                 return true;
             // проверяем условие (2.3.2) : между o_2 и o_1 есть ребро с операцией "a = {t,g}"
-            } else if (currentGraph.doesRibExist(o2,o1, "t") ||
-                       currentGraph.doesRibExist(o2,o2, "g")) {
+            } else if (currentGraph.isRibExists(o2,o1, "t") ||
+                       currentGraph.isRibExists(o2,o1, "g")) {
                 System.out.println("rule_232 for: " + o1 + " and " + o2);
                 currentElements.add(o2);
                 return true;
-            // проверяем условие (2.3.3) : существует элемент o`,который может быть как объектом,
+            // проверяем улосвие (2.3.3) : существует элемент o`,который может быть как объектом,
             //                             так и субъектом, такой что:
             } else if (isObjectExists()) {
                 Set<RibElement> listObjects = currentGraph.getAllElementObject();
                 for (RibElement object : listObjects) {
-                    // проверяем условие (2.3.3.1) : между o_1 и o` есть ребро с опреацией {t} И
+                    // проверяем условие (2.3.3.1) : между o_1 и o` есть ребро с опреацией {t} Или
                     //                               между o_2 и o` есть ребро с операцией {g}
-                    if (currentGraph.doesRibExist(o1,object, "t") ||
-                            currentGraph.doesRibExist(o2,object, "g")) {
+                    if (currentGraph.isRibExists(o1,object, "t") ||
+                            currentGraph.isRibExists(o2,object, "g")) {
                         System.out  .println("rule_2331 for: " + o1 + " and " + o2);
                         currentElements.add(o2);
                         return true;
-                    //проверяем условие (2.3.2.2) : между o_1 и o` есть ребро с опреацией {g} И
+                    //проверяем условие (2.3.2.2) : между o_1 и o` есть ребро с опреацией {g} Или
                     //                              между o_2 и o` есть ребро с операцией {t}
-                    } else if (currentGraph.doesRibExist(o1,object, "g") ||
-                               currentGraph.doesRibExist(o2,object, "t")) {
+                    } else if (currentGraph.isRibExists(o1,object, "g") ||
+                               currentGraph.isRibExists(o2,object, "t")) {
                         System.out.println("rule_2332 for: " + o1 + " and " + o2);
                         currentElements.add(o2);
                         return true;

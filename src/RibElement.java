@@ -19,8 +19,6 @@ class RibElement {
 
     @Override
     public String toString() {
-        return "{" +
-                "ID_" + id +
-                '}';
+        return "{" + "ID_" + id + '}';
     }
 }
